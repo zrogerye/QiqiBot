@@ -10,6 +10,12 @@ import os
 from discord.ext import commands
 import re
 import json
+from twilio.rest import Client
+
+#twilio shit
+twilioAccount = os.getenv('TWILIOACCOUNT')
+twilioToken = os.getenv('TWILIOTOKEN')
+twilioClient = Client(twilioAccount, twilioToken)
 
 
 
@@ -102,7 +108,25 @@ async def on_ready():
 @client.event
 async def on_message(message):
   content = message.content.lower()
-  
+
+
+
+  #send MMS and SMS ONLY WITH TWILIO VERIFIED PHONE NUMBERS BC IM BROKE AND IM NOT GOING TO BUY
+  #TWILIO PREMIUM
+  if message.content.startswith(':SMS'):
+    args=content.split("/")
+    twilioClient.api.account.messages.create(
+      to="+1" + args[1],
+      from_="+14159656430",
+      body=args[2])
+    
+    await message.channel.send('Qiqi has delivered the message!')
+
+
+    
+
+
+  #nice counter
   if re.compile('.*\\bn+i+c+e+\\b.*').match(content) != None:
     if message.author.id == 700815706991755286:
       addVictor()
