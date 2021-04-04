@@ -119,6 +119,10 @@ async def on_message(message):
     await message.channel.purge(limit=1)
     await message.channel.send('>:(')
 
+  if re.compile('.*\\bm+a+m+a+\\b.*').match(content) != None:
+    await message.channel.purge(limit=1)
+    await message.channel.send('>:(')
+
 
   #send MMS and SMS ONLY WITH TWILIO VERIFIED PHONE NUMBERS BC IM BROKE AND IM NOT GOING TO BUY
   #TWILIO PREMIUM
