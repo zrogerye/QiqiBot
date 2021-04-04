@@ -113,15 +113,19 @@ async def on_message(message):
   #censors your mom haha no free speech >:)
   if re.compile('.*\\bm+o+m+\\b.*').match(content) != None:
     await message.channel.purge(limit=1)
-    await message.channel.send('>:(')
+    #await message.channel.send('>:(')
 
   if re.compile('.*\\bm+o+t+h+e+r+\\b.*').match(content) != None:
     await message.channel.purge(limit=1)
-    await message.channel.send('>:(')
+    #await message.channel.send('>:(')
 
   if re.compile('.*\\bm+a+m+a+\\b.*').match(content) != None:
     await message.channel.purge(limit=1)
-    await message.channel.send('>:(')
+    #await message.channel.send('>:(')
+
+  if re.compile('.*\\bm+u+m+\\b.*').match(content) != None:
+    await message.channel.purge(limit=1)
+    #await message.channel.send('>:(')
 
 
   #send MMS and SMS ONLY WITH TWILIO VERIFIED PHONE NUMBERS BC IM BROKE AND IM NOT GOING TO BUY
