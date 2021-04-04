@@ -1,1 +1,1 @@
-A Discord bot that uses Python that completes simple tasks from altering messages to sending emails and SMS messages.
+A Discord bot that uses Python tot completes simple tasks such as altering messages and sending emails or SMS messages.
