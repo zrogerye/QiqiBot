@@ -42,7 +42,7 @@ victor = victorNiceCounterFile.read()
 roger = rogerNiceCounterFile.read()
 jack = jackNiceCounterFile.read()
 
-#counts how many times total each person says nice
+#counts how many times total each person says nice11
 def update():
   global roger,victor,nathan,jack
   victorNiceCounterFile.seek(0)
@@ -109,6 +109,15 @@ async def on_ready():
 async def on_message(message):
   content = message.content.lower()
 
+
+  #censors your mom haha no free speech >:)
+  if re.compile('.*\\bm+o+m+\\b.*').match(content) != None:
+    await message.channel.purge(limit=1)
+    await message.channel.send('>:(')
+
+  if re.compile('.*\\bm+o+t+h+e+r+\\b.*').match(content) != None:
+    await message.channel.purge(limit=1)
+    await message.channel.send('>:(')
 
 
   #send MMS and SMS ONLY WITH TWILIO VERIFIED PHONE NUMBERS BC IM BROKE AND IM NOT GOING TO BUY
