@@ -111,24 +111,24 @@ async def on_message(message):
 
 
   #censors your mom haha no free speech >:)
-  if re.compile('.*\\bm+o+m+\\b.*').match(content) != None:
-    await message.channel.purge(limit=1)
+  #if re.compile('.*\\bm+o+m+\\b.*').match(content) != None:
+   # await message.channel.purge(limit=1)
     #await message.channel.send('>:(')
 
-  if re.compile('.*\\bm+o+t+h+e+r+\\b.*').match(content) != None:
-    await message.channel.purge(limit=1)
+  #if re.compile('.*\\bm+o+t+h+e+r+\\b.*').match(content) != None:
+   # await message.channel.purge(limit=1)
     #await message.channel.send('>:(')
 
-  if re.compile('.*\\bm+a+m+a+\\b.*').match(content) != None:
-    await message.channel.purge(limit=1)
+  #if re.compile('.*\\bm+a+m+a+\\b.*').match(content) != None:
+   # await message.channel.purge(limit=1)
     #await message.channel.send('>:(')
 
-  if re.compile('.*\\bm+u+m+\\b.*').match(content) != None:
-    await message.channel.purge(limit=1)
+  #if re.compile('.*\\bm+u+m+\\b.*').match(content) != None:
+   # await message.channel.purge(limit=1)
     #await message.channel.send('>:(')
 
-  if re.compile('.*\\bm+o+m+m+a+\\b.*').match(content) != None:
-    await message.channel.purge(limit=1)
+  #if re.compile('.*\\bm+o+m+m+a+\\b.*').match(content) != None:
+   # await message.channel.purge(limit=1)
     #await message.channel.send('>:(')
 
 
