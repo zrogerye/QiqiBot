@@ -140,8 +140,10 @@ async def on_message(message):
 
     #rule34
     if message.content.startswith(':rule34'):
-        html_page = urllib.request.urlopen("https://rule34.xxx/index.php?page=post&s=list&tags=all")
-        soup = BeautifulSoup(html_page)
+        url = "https://rule34.xxx/index.php?page=post&s=view&id="
+        randomNumber = random.randint(0, 4205077)
+        url += randomNumber
+        html_page = urllib.request.urlopen(url)
         images = []
         for img in soup.findAll('img'):
             images.append(img.get('src'))
