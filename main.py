@@ -1,3 +1,5 @@
+from urllib.request import urlopen
+
 import discord
 import random
 import smtplib, ssl
@@ -11,7 +13,8 @@ from discord.ext import commands
 import re
 import json
 from bs4 import BeautifulSoup
-import urllib.request
+import urllib
+from urllib.request import Request
 
 client = discord.Client()
 TOKEN = #token here
@@ -140,17 +143,15 @@ async def on_message(message):
 
     #rule34
     if message.content.startswith(':rule34'):
-        url = "https://rule34.xxx/index.php?page=post&s=view&id="
-        randomNumber = random.randint(0, 4205077)
-        url += randomNumber
-        html_page = urllib.request.urlopen(url)
-        images = []
+        req = Request('https://rule34.xxx/index.php?page=post&s=random', headers={'User-Agent': 'Mozilla/5.0'})
+        html_page = urlopen(req).read()
+        soup = BeautifulSoup(html_page, features="html.parser")
+        sendImg = None
         for img in soup.findAll('img'):
-            images.append(img.get('src'))
-
-        random_index = random.randint(0, len(images) - 1)
-        rando = (images[random_index])
-        await message.channel.send(rando)
+            s = img.get('src')
+            if (s.startswith("https://us.rule34.xxx")):
+                sendImg = s
+        await message.channel.send(sendImg)
 
 #keepAlive()
 client.run(TOKEN)
