@@ -143,7 +143,7 @@ async def on_message(message):
     #rule34
     if message.content.startswith(':r34'):
         temp = True
-        args = content.split('/')
+        args = content.split(' ')
 
         if len(args) == 1:
             temp = False
