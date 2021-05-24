@@ -140,6 +140,23 @@ async def on_message(message):
             ":help - qiqi will help! \n:hello - says hi to me, Qiqi! \n:qiqi - qiqi will say something cool \n:email - :email/receiver's email/subject/message/qiqi 1 or qiqi 2 \nganyu - is cocogoat here? ")
         await message.channel.send(helpMessage)
 
+    #rule34
+    if message.content.startswith(':r34'):
+        temp = True
+        args = content.split('/')
+
+        if len(args) == 1:
+            temp = False
+            req = Request('https://rule34.xxx/index.php?page=post&s=random', headers={'User-Agent': 'Mozilla/5.0'})
+            html_page = urlopen(req).read()
+            soup = BeautifulSoup(html_page, features="html.parser")
+            sendImg = None
+            for img in soup.findAll('img'):
+                s = img.get('src')
+                if (s.startswith("https://us.rule34.xxx")):
+                    sendImg = s
+            await message.channel.send(sendImg)
+
         if temp == True:
             url = 'https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=100&tags='
             tag = args[1]
@@ -155,13 +172,16 @@ async def on_message(message):
                     images.append(s)
 
             finImages = []
-            for imgF in images:
-                f = imgF
-                i = f[10:len(f) - 1]
-                finImages.append(i)
+            if len(finImages) == 0:
+                temp == False
+                await message.channel.send('qiqi could not find any images with that tag')
 
-            fin = random.choice(finImages)
-            await message.channel.send(fin)
+            if(temp == True):
+                for imgF in images:
+                    f = imgF
+                    i = f[10:len(f) - 1]
+                    finImages.append(i)
 
+                    
 #keepAlive()
 client.run(TOKEN)
