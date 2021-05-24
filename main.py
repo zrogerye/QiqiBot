@@ -152,6 +152,37 @@ async def on_message(message):
             if (s.startswith("https://us.rule34.xxx")):
                 sendImg = s
         await message.channel.send(sendImg)
+    
+    #rule34 but with tags
+    if message.content.startswith(':r34'):
+        temp = True
+        args = content.split('/')
+        if len(args) == 1:
+            await message.channel.send('qiqi thinks there are not enough arguments')
+            temp = False
+
+        if temp == True:
+            url = 'https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=100&tags='
+            tag = args[1]
+            url += tag
+            req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            html_page = urlopen(req).read()
+            soup = BeautifulSoup(html_page, features="html.parser")
+            split = str(soup).split()
+            images = []
+            for img in split:
+                s = img
+                if (s.startswith('file_url')):
+                    images.append(s)
+
+            finImages = []
+            for imgF in images:
+                f = imgF
+                i = f[10:len(f) - 1]
+                finImages.append(i)
+
+            fin = random.choice(finImages)
+            await message.channel.send(fin)
 
 #keepAlive()
 client.run(TOKEN)
