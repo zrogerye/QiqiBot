@@ -172,15 +172,18 @@ async def on_message(message):
                     images.append(s)
 
             finImages = []
-            if len(finImages) == 0:
-                temp == False
-                await message.channel.send('qiqi could not find any images with that tag')
+            for imgF in images:
+                f = imgF
+                i = f[10:len(f) - 1]
+                finImages.append(i)
 
-            if(temp == True):
-                for imgF in images:
-                    f = imgF
-                    i = f[10:len(f) - 1]
-                    finImages.append(i)
+            if len(finImages) == 0:
+                temp = False
+                await message.channel.send('qiqi could not find any images wiht that tag')
+
+            if temp == True:
+                fin = random.choice(finImages)
+                await message.channel.send(fin)
 
                     
 #keepAlive()
