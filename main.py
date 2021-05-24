@@ -179,7 +179,7 @@ async def on_message(message):
 
             if len(finImages) == 0:
                 temp = False
-                await message.channel.send('qiqi could not find any images wiht that tag')
+                await message.channel.send('qiqi could not find any images with that tag')
 
             if temp == True:
                 fin = random.choice(finImages)
