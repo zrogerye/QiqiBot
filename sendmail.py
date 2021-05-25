@@ -1,5 +1,5 @@
 def sendemail(content):
-    GMAILPASS = 'qiqiBot3000'
+    GMAILPASS = # Email Password Here
     temp = True
     args = content.split("/")
     receiver = args[1]

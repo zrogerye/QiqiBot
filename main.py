@@ -13,7 +13,7 @@ from sendmail import sendemail
 # from keepAlive import keepAlive
 
 client = discord.Client()
-TOKEN = 'ODE0OTcxMDUzODU1OTk3OTcy.YDlm8A.2JUoIHJIZJ4PSgsCbxU924U_Mjo'
+TOKEN = # Bot Token Here
 
 
 @client.event
