@@ -58,6 +58,11 @@ async def on_message(message):
     if message.content.startswith(':r34'):
         out = rule34(content)
         await message.channel.send(out)
+    
+    # random lightshot image
+    if message.content.startswith(':lightshot'):
+        out = lightshot(content)
+        await message.channel.send(out)
 
     # spam email
     if message.content.startswith(':spamemail'):
