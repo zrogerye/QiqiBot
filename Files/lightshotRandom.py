@@ -2,7 +2,6 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import urllib
 from urllib.request import Request
-from lxml import html
 import requests
 import random
 import urllib.request
