@@ -101,6 +101,7 @@ async def on_message(message):
             outtitle = titles[pos]
             await message.channel.send(outtitle)
             await message.channel.send(outurl)
+            await message.channel.send("<" + outurl + ">")
 
     # spam email
     if message.content.startswith('>spamemail'):
