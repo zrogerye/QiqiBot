@@ -4,7 +4,7 @@ A Discord bot that uses Python to complete simple tasks such as altering message
 # Notes
 
 autoQiqi.bat and launch_bat.vbs is an a way for qiqiBot to go online automatically on computer startup.
-autoQiqi.bat runs the bot.py python file through a command line when called
+autoQiqi.bat runs the bot.py python file through a command line when called.
 launch_bat.vbs makes the command prompt screen invisible after the batch file puts qiqiBot online
 
 All python files needed to run the bot are located in the Files folder
