@@ -6,13 +6,37 @@ from rule34 import rule34
 from voicelines import voicelines
 from sendmail import sendemail
 from lightshotRandom import lightshot
-from reddit import reddit
+import asyncpraw
+import random
+
+
+class asyncrange:
+    class __asyncrange:
+        def __init__(self, *args):
+            self.__iter_range = iter(range(*args))
+
+        async def __anext__(self):
+            try:
+                return next(self.__iter_range)
+            except StopIteration as e:
+                raise StopAsyncIteration(str(e))
+
+    def __init__(self, *args):
+        self.__args = args
+
+    def __aiter__(self):
+        return self.__asyncrange(*self.__args)
+
 
 # keepAlive is used for hosting on replit
 # from keepAlive import keepAlive
 
 client = discord.Client()
-TOKEN = 'insert token here'
+TOKEN = 'BOT TOKEN HERE'
+
+reddit = asyncpraw.Reddit(client_id='REDDIT ID HERE',
+                          client_secret='REDDIT TOKEN HERE',
+                          user_agent='Mozilla/5.0')
 
 
 @client.event
@@ -64,14 +88,38 @@ async def on_message(message):
     if message.content.startswith('>lightshot') or message.content.startswith('>ls'):
         out = lightshot()
         await message.channel.send(out)
-        
+
     # random image from a random subreddit or a specified subreddit
     if message.content.startswith('>reddit'):
-        out = reddit(content)
-        url = out[0]
-        title = out[1]
-        await message.channel.send("Title: " + title)
-        await message.channel.send(url)
+        args = content.split(" ")
+        temp = True
+        if len(args) == 1:
+            urls = []
+            titles = []
+            temp = False
+            key = 'memes'
+            meme_subreddit = await reddit.subreddit('memes')
+            async for submission in meme_subreddit.hot():
+                urls.append(submission.url)
+                titles.append(submission.title)
+            pos = random.randint(0, len(urls))
+            outurl = urls[pos]
+            outtitle = titles[pos]
+            await message.channel.send(outtitle)
+            await message.channel.send(outurl)
+        if temp == True:
+            urls = []
+            titles = []
+            key = args[1]
+            meme_subreddit = await reddit.subreddit(key)
+            async for submission in meme_subreddit.hot():
+                urls.append(submission.url)
+                titles.append(submission.title)
+            pos = random.randint(0, len(urls))
+            outurl = urls[pos]
+            outtitle = titles[pos]
+            await message.channel.send(outtitle)
+            await message.channel.send(outurl)
 
     # spam email
     if message.content.startswith('>spamemail'):
