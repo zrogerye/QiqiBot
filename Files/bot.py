@@ -8,28 +8,9 @@ from sendmail import sendemail
 from lightshotRandom import lightshot
 import asyncpraw
 import random
-
-
-class asyncrange:
-    class __asyncrange:
-        def __init__(self, *args):
-            self.__iter_range = iter(range(*args))
-
-        async def __anext__(self):
-            try:
-                return next(self.__iter_range)
-            except StopIteration as e:
-                raise StopAsyncIteration(str(e))
-
-    def __init__(self, *args):
-        self.__args = args
-
-    def __aiter__(self):
-        return self.__asyncrange(*self.__args)
-
-
 # keepAlive is used for hosting on replit
 # from keepAlive import keepAlive
+
 
 client = discord.Client()
 TOKEN = 'BOT TOKEN HERE'
