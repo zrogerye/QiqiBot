@@ -14,4 +14,3 @@ All python files needed to run the bot are located in the Files folder
 - sendmail.py is needed for sending emails.
 - test.py is my own personal test file. You may ignore this file
 - voicelines.py returns a random voiceline from the character Qiqi from the game, Genshin Impact
-- reddit.py takes in a parameter stating which subreddit you would like to search. If there is no parameter, it searchs r/memes by default. This returns the post title and image
