@@ -6,6 +6,7 @@ from rule34 import rule34
 from voicelines import voicelines
 from sendmail import sendemail
 from lightshotRandom import lightshot
+from reddit import reddit
 
 # keepAlive is used for hosting on replit
 # from keepAlive import keepAlive
@@ -63,6 +64,14 @@ async def on_message(message):
     if message.content.startswith('>lightshot') or message.content.startswith('>ls'):
         out = lightshot()
         await message.channel.send(out)
+        
+    # random image from a random subreddit or a specified subreddit
+    if message.content.startswith('>reddit'):
+        out = reddit(content)
+        url = out[0]
+        title = out[1]
+        await message.channel.send("Title: " + title)
+        await message.channel.send(url)
 
     # spam email
     if message.content.startswith('>spamemail'):
