@@ -8,21 +8,33 @@ from sendmail import sendemail
 from lightshotRandom import lightshot
 import asyncpraw
 import random
+import json
 # keepAlive is used for hosting on replit
 # from keepAlive import keepAlive
 
-
 client = discord.Client()
-TOKEN = 'BOT TOKEN HERE'
 
-reddit = asyncpraw.Reddit(client_id='REDDIT ID HERE',
-                          client_secret='REDDIT TOKEN HERE',
+CREDENTIALS_FILE = open('credentials.json', 'r')
+CREDENTIALS_JSON = json.loads(CREDENTIALS_FILE.read())
+
+TOKEN = CREDENTIALS_JSON['token']
+REDDIT_ID = CREDENTIALS_JSON['reddit_id']
+REDDIT_SECRET = CREDENTIALS_JSON['reddit_secret']
+EMAIL_PASSWORD = CREDENTIALS_JSON['email_password']
+
+reddit = asyncpraw.Reddit(client_id=REDDIT_ID,
+                          client_secret=REDDIT_SECRET,
                           user_agent='Mozilla/5.0')
 
 
 @client.event
 async def on_ready():
     print('Logged on as {0.user}'.format(client))
+
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="for >help | "
+                                                                                                    "waiting for "
+                                                                                                    "cocogoat "
+                                                                                                    "milk..."))
 
 
 @client.event
@@ -55,7 +67,10 @@ async def on_message(message):
     if message.content.startswith('>help'):
         helpMessage = (
             ">help - qiqi will help! \n>hello - says hi to me, Qiqi! \n>qiqi - qiqi will say something cool \n>email "
-            "- >email/receiver's email/subject/message/qiqi 1 or qiqi 2 \nganyu - is cocogoat here? ")
+            "- >email/receiver's email/subject/message/qiqi 1 or qiqi 2 \n>r34 - gets a "
+            "random image from rule34 \n>r34 *tag* - gets a random image from rule34 with the tag \n>ls or "
+            ">lightshot - gets a random screenshot from lightshot \n>reddit - gets a random post from r/memes \n"
+            ">reddit *subreddit* - gets a random post from the specified subreddit")
         await message.channel.send(helpMessage)
 
     # rule34
@@ -127,7 +142,7 @@ async def on_message(message):
                 msg['From'] = sender
                 msg['To'] = receiver
                 s = smtplib.SMTP_SSL(host='smtp.gmail.com', port=465)
-                s.login(user=sender, password=os.getenv('GMAILPASS'))
+                s.login(user=sender, password=EMAIL_PASSWORD)
                 s.sendmail(sender, receiver, msg.as_string())
                 s.quit()
                 if temp == True:
