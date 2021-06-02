@@ -1,5 +1,12 @@
+import smtplib
+from email.mime.text import MIMEText
+import json
+
 def sendemail(content):
-    GMAILPASS = # Email Password Here
+    CREDENTIALS_FILE = open('credentials.json', 'r')
+    CREDENTIALS_JSON = json.loads(CREDENTIALS_FILE.read())
+    GMAILPASS = CREDENTIALS_JSON['email_password']
+    
     temp = True
     args = content.split("/")
     receiver = args[1]
