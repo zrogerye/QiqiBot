@@ -1,15 +1,23 @@
 # Qiqi Bot
 A Discord bot that uses Python to complete simple tasks such as altering messages and sending emails.
 
-#Features
->help - returns a list of commands
->hello - qiqi introduces herself
->qiqi - returns a random voiceline
->email/receiver's email/subject/body/1 or 2
->spamemail/receiver's email/number of emails/body/1 or 2
->r34 - gets a random image from rule34 if not passed a parameter, gets a random image from rule34 with a specific tag if passed 1 parameter
->ls or >lightshot - returns a random screenshot from lightshot
->reddit - returns a random post from r/memes if no parameters are passed, gets a ramdom image from r/*parameter* if 1 parameter is passed
+# Features (Commands) with prefix '>'
+
+help - returns a list of commands
+
+hello - qiqi introduces herself
+
+qiqi - returns a random voiceline
+
+email/receiver's email/subject/body/1 or 2
+
+spamemail/receiver's email/number of emails/body/1 or 2
+
+r34 - gets a random image from rule34 if not passed a parameter, gets a random image from rule34 with a specific tag if passed 1 parameter
+
+ls or >lightshot - returns a random screenshot from lightshot
+
+reddit - returns a random post from r/memes if no parameters are passed, gets a ramdom image from r/*parameter* if 1 parameter is passed
 
 # Notes
 
