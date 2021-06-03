@@ -16,14 +16,15 @@ client = discord.Client()
 
 CREDENTIALS_FILE = open('credentials.json', 'r')
 CREDENTIALS_JSON = json.loads(CREDENTIALS_FILE.read())
-
 TOKEN = CREDENTIALS_JSON['token']
 REDDIT_ID = CREDENTIALS_JSON['reddit_id']
 REDDIT_SECRET = CREDENTIALS_JSON['reddit_secret']
 EMAIL_PASSWORD = CREDENTIALS_JSON['email_password']
 
-reddit = asyncpraw.Reddit(client_id=REDDIT_ID,
-                          client_secret=REDDIT_SECRET,
+token = 'ODE0OTcxMDUzODU1OTk3OTcy.YDlm8A.h4fOOXKkOXQKX2GexOfMTz-bCqg'
+
+reddit = asyncpraw.Reddit(client_id='-QRQ-QO2n8bimQ',
+                          client_secret='y7XzChnvbkhjU8WHQ-FxYEekqhvdCg',
                           user_agent='Mozilla/5.0')
 
 
@@ -31,10 +32,8 @@ reddit = asyncpraw.Reddit(client_id=REDDIT_ID,
 async def on_ready():
     print('Logged on as {0.user}'.format(client))
 
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="for >help | "
-                                                                                                    "waiting for "
-                                                                                                    "cocogoat "
-                                                                                                    "milk..."))
+    await client.change_presence(
+        activity=discord.Activity(type=discord.ActivityType.watching, name="for >help | waiting for cocogoat milk..."))
 
 
 @client.event
@@ -142,7 +141,7 @@ async def on_message(message):
                 msg['From'] = sender
                 msg['To'] = receiver
                 s = smtplib.SMTP_SSL(host='smtp.gmail.com', port=465)
-                s.login(user=sender, password=EMAIL_PASSWORD)
+                s.login(user=sender, password=os.getenv('GMAILPASS'))
                 s.sendmail(sender, receiver, msg.as_string())
                 s.quit()
                 if temp == True:
@@ -159,6 +158,38 @@ async def on_message(message):
               '\nLet it rip!\nMetal Fusion, Let it rip!\nBeyblade, Beyblade\nLet it rip!\nThis is it, Get a grip, ' \
               'Let it rip! '
         await message.channel.send(bey)
+
+    # counts how many times "nice" was said total
+    if "nice" in content:
+        add = content.count("nice")
+        a_file = open("niceCounter.json", "r")
+        json_object = json.load(a_file)
+        a_file.close()
+
+        json_object["nice"] = json_object["nice"] + add
+
+        idNum = message.author.id
+        user = str(await client.fetch_user(idNum))
+
+        if user not in json_object:
+            json_object[user] = 0
+            a_file = open("niceCounter.json", "w")
+            json.dump(json_object, a_file)
+            a_file.close()
+
+        json_object[user] += add
+        a_file = open("niceCounter.json", "w")
+        json.dump(json_object, a_file)
+        a_file.close()
+
+    if message.content.startswith(">count"):
+        a_file = open("niceCounter.json", "r")
+        json_object = json.load(a_file)
+        a_file.close()
+        out = ""
+        for key in json_object:
+            out += (key + ' -> ' + str(json_object[key])) + "\n"
+        await message.channel.send(out)
 
 
 # keepAlive()
