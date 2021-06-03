@@ -21,12 +21,6 @@ REDDIT_ID = CREDENTIALS_JSON['reddit_id']
 REDDIT_SECRET = CREDENTIALS_JSON['reddit_secret']
 EMAIL_PASSWORD = CREDENTIALS_JSON['email_password']
 
-token = 'ODE0OTcxMDUzODU1OTk3OTcy.YDlm8A.h4fOOXKkOXQKX2GexOfMTz-bCqg'
-
-reddit = asyncpraw.Reddit(client_id='-QRQ-QO2n8bimQ',
-                          client_secret='y7XzChnvbkhjU8WHQ-FxYEekqhvdCg',
-                          user_agent='Mozilla/5.0')
-
 
 @client.event
 async def on_ready():
