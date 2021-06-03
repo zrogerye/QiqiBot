@@ -15,7 +15,7 @@ spamemail/receiver's email/number of emails/body/1 or 2
 
 r34 - gets a random image from rule34 if not passed a parameter, gets a random image from rule34 with a specific tag if passed 1 parameter
 
-ls or >lightshot - returns a random screenshot from lightshot
+ls or lightshot - returns a random screenshot from lightshot
 
 reddit - returns a random post from r/memes if no parameters are passed, gets a ramdom image from r/*parameter* if 1 parameter is passed
 
