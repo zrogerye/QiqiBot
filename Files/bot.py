@@ -22,6 +22,11 @@ REDDIT_SECRET = CREDENTIALS_JSON['reddit_secret']
 EMAIL_PASSWORD = CREDENTIALS_JSON['email_password']
 
 
+reddit = asyncpraw.Reddit(client_id=REDDIT_ID,
+                          client_secret=REDDIT_SECRET,
+                          user_agent='Mozilla/5.0')
+
+
 @client.event
 async def on_ready():
     print('Logged on as {0.user}'.format(client))
@@ -160,30 +165,69 @@ async def on_message(message):
         json_object = json.load(a_file)
         a_file.close()
 
-        json_object["nice"] = json_object["nice"] + add
+        idNum = str(message.author.id)
+        #user = str(await client.fetch_user(idNum))
 
-        idNum = message.author.id
-        user = str(await client.fetch_user(idNum))
-
-        if user not in json_object:
-            json_object[user] = 0
+        if idNum not in json_object:
+            json_object[idNum] = 0
             a_file = open("niceCounter.json", "w")
             json.dump(json_object, a_file)
             a_file.close()
 
-        json_object[user] += add
-        a_file = open("niceCounter.json", "w")
-        json.dump(json_object, a_file)
-        a_file.close()
+        if idNum in json_object:
+            json_object[idNum] += add
+            a_file = open("niceCounter.json", "w")
+            json.dump(json_object, a_file)
+            a_file.close()
 
-    if message.content.startswith(">count"):
+    if message.content.startswith(">count") and not message.content.startswith(">countAd"):
         a_file = open("niceCounter.json", "r")
         json_object = json.load(a_file)
         a_file.close()
         out = ""
+        count = 0
         for key in json_object:
-            out += (key + ' -> ' + str(json_object[key])) + "\n"
-        await message.channel.send(out)
+            name = str(await client.fetch_user(str(key)))
+            out += (name + ' -> ' + str(json_object[key]) + "\n")
+            count += json_object[key]
+        await message.channel.send(out + "\n" + "total: " + str(count))
+
+    # for me to pray to the college admissions gods
+    if message.content.startswith("~pray"):
+        add = 0
+        args = content.split(" ")
+        if len(args) == 1:
+            add = 1
+        if len(args) > 1:
+            add = args[1]
+        a_file = open("collegeGods.json", "r")
+        json_object = json.load(a_file)
+        a_file.close()
+
+        idNum = str(message.author.id)
+        #user = str(await client.fetch_user(idNum))
+
+        if idNum not in json_object:
+            json_object[idNum] = 0
+            a_file = open("collegeGods.json", "w")
+            json.dump(json_object, a_file)
+            a_file.close()
+
+        json_object[idNum] += 1
+        a_file = open("collegeGods.json", "w")
+        json.dump(json_object, a_file)
+        a_file.close()
+    if message.content.startswith(">countAd"):
+        a_file = open("collegeGods.json", "r")
+        json_object = json.load(a_file)
+        a_file.close()
+        out = ""
+        count = 0
+        for key in json_object:
+            name = str(await client.fetch_user(str(key)))
+            out += (name + ' -> ' + str(json_object[key]) + "\n")
+            count += json_object[key]
+        await message.channel.send(out + "\n" + "total: " + str(count))
 
 
 # keepAlive()
