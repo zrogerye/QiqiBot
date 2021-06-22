@@ -19,6 +19,8 @@ ls or lightshot - returns a random screenshot from lightshot
 
 reddit - returns a random post from r/memes if no parameters are passed, gets a ramdom image from r/*parameter* if 1 parameter is passed
 
+pfp - returns the avatar picture of whoever is mentioned
+
 # Notes
 
 autoQiqi.bat and launch_bat.vbs is an a way for qiqiBot to go online automatically on computer startup.
