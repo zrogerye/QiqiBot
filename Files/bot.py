@@ -2,6 +2,9 @@ import discord
 import smtplib
 from email.mime.text import MIMEText
 import os
+
+from discord import member
+
 from rule34 import rule34
 from voicelines import voicelines
 from sendmail import sendemail
@@ -9,6 +12,7 @@ from lightshotRandom import lightshot
 import asyncpraw
 import random
 import json
+
 # keepAlive is used for hosting on replit
 # from keepAlive import keepAlive
 
@@ -21,7 +25,6 @@ REDDIT_ID = CREDENTIALS_JSON['reddit_id']
 REDDIT_SECRET = CREDENTIALS_JSON['reddit_secret']
 EMAIL_PASSWORD = CREDENTIALS_JSON['email_password']
 
-
 reddit = asyncpraw.Reddit(client_id=REDDIT_ID,
                           client_secret=REDDIT_SECRET,
                           user_agent='Mozilla/5.0')
@@ -33,7 +36,6 @@ async def on_ready():
 
     await client.change_presence(
         activity=discord.Activity(type=discord.ActivityType.watching, name="for >help | waiting for cocogoat milk..."))
-
 
 @client.event
 async def on_message(message):
@@ -68,7 +70,8 @@ async def on_message(message):
             "- >email/receiver's email/subject/message/qiqi 1 or qiqi 2 \n>r34 - gets a "
             "random image from rule34 \n>r34 *tag* - gets a random image from rule34 with the tag \n>ls or "
             ">lightshot - gets a random screenshot from lightshot \n>reddit - gets a random post from r/memes \n"
-            ">reddit *subreddit* - gets a random post from the specified subreddit")
+            ">reddit *subreddit* - gets a random post from the specified subreddit \n>pfp - gets the profile avatar "
+            "of whoever you mention")
         await message.channel.send(helpMessage)
 
     # rule34
@@ -166,7 +169,7 @@ async def on_message(message):
         a_file.close()
 
         idNum = str(message.author.id)
-        #user = str(await client.fetch_user(idNum))
+        # user = str(await client.fetch_user(idNum))
 
         if idNum not in json_object:
             json_object[idNum] = 0
@@ -205,7 +208,7 @@ async def on_message(message):
         a_file.close()
 
         idNum = str(message.author.id)
-        #user = str(await client.fetch_user(idNum))
+        # user = str(await client.fetch_user(idNum))
 
         if idNum not in json_object:
             json_object[idNum] = 0
@@ -229,6 +232,18 @@ async def on_message(message):
             count += json_object[key]
         await message.channel.send(out + "\n" + "total: " + str(count))
 
+    # grabs the profile picture of a user
+    if message.content.startswith('>pfp'):
+        mentions = message.mentions
+        if len(mentions) == 0:
+            await message.channe.send('pwease gib qiqi a mention')
+            return
+        for i in mentions:
+            embed = discord.Embed(
+                color=0x206694
+            )
+            embed.set_image(url=i.avatar_url)
+            await message.channel.send(embed=embed)
 
 # keepAlive()
 client.run(TOKEN)
