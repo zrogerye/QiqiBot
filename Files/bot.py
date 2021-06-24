@@ -2,6 +2,8 @@ import discord
 import smtplib
 from email.mime.text import MIMEText
 import os
+from discord import FFmpegPCMAudio
+from discord.utils import get
 
 from discord import member
 
@@ -244,6 +246,27 @@ async def on_message(message):
             )
             embed.set_image(url=i.avatar_url)
             await message.channel.send(embed=embed)
+
+    # makes bot join the call
+    if message.content.startswith('>join'):
+        if message.author.voice == None:
+            await message.channel.send('pwease join a vc')
+            return
+        await message.channel.send('qiqi is here!')
+        await message.author.voice.channel.connect()
+
+    # makes bot leave the call
+    if message.content.startswith('>leave'):
+        if message.author.voice == None:
+            await message.channel.send('i not in vc!')
+        connec = client.voice_clients
+        for conn in connec:
+            conn.stop()
+            await message.channel.send('bye bye!')
+            await conn.disconnect()
+            return
+
+
 
 # keepAlive()
 client.run(TOKEN)
