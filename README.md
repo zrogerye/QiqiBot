@@ -31,5 +31,4 @@ All python files needed to run the bot are located in the Files folder
 - bot.py contains everything that is needed to interact with discord
 - keepAlive.py is needed if qiqiBot is being hosted on replit. It pings the bot before it shuts down
 - sendmail.py is needed for sending emails.
-- test.py is my own personal test file. You may ignore this file
 - voicelines.py returns a random voiceline from the character Qiqi from the game, Genshin Impact
